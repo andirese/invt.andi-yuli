@@ -1,3 +1,47 @@
-index . html
-style . css
-script . js
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan - Atma & Fahmi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Atma & Fahmi</h1>
+    <p class="invitation-text">
+      Dengan memohon rahmat dan ridho Allah SWT,<br>
+      Kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara pernikahan kami.
+    </p>
+
+    <div class="details">
+      <h2>Detail Acara</h2>
+      <p>📅 Minggu, 27 Agustus 2025</p>
+      <p>🕒 Pukul 10.00 WIB</p>
+      <p>📍 Ballroom Hotel Harmoni</p>
+    </div>
+
+    <div class="countdown">
+      <h2>Countdown</h2>
+      <div id="timer"></div>
+    </div>
+
+    <div class="gallery">
+      <h2>Gallery</h2>
+      <img src="images/foto1.jpg" alt="Foto 1">
+      <img src="images/foto2.jpg" alt="Foto 2">
+    </div>
+
+    <div class="closing">
+      <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
+    </div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="musik.mp3" type="audio/mpeg">
+    Browser Anda tidak mendukung audio.
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
