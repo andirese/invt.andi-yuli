@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Yuli & Andi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bunga-container"></div>
+
+    <div class="opening">
+        <h1>The Wedding of</h1>
+        <h2>Yuli & Andi</h2>
+        <p>Minggu, 22 September 2025</p>
+        <button onclick="bukaUndangan()">Buka Undangan</button>
+    </div>
+
+    <section id="content" class="hidden">
+        <div class="section" id="perkenalan">
+            <h2>Perkenalan</h2>
+            <div class="card">
+                <img src="foto1.jpg" alt="Foto Yuli">
+                <h3>Yuli</h3>
+                <p>Putri dari Bapak Nama Ayah & Ibu Nama Ibu</p>
+            </div>
+            <div class="card">
+                <img src="foto2.jpg" alt="Foto Andi">
+                <h3>Andi</h3>
+                <p>Putra dari Bapak Nama Ayah & Ibu Nama Ibu</p>
+            </div>
+        </div>
+
+        <div class="section" id="akad">
+            <h2>Akad Nikah</h2>
+            <p>Minggu, 22 September 2025</p>
+            <p>Jl. Sukadana No.21</p>
+            <a class="btn" href="https://maps.app.goo.gl/FF1F48iuKxsuJNXG8" target="_blank">📍 Petunjuk Lokasi</a>
+        </div>
+
+        <div class="section" id="galeri">
+            <h2>Galeri</h2>
+            <img src="foto1.jpg" alt="Galeri 1">
+            <img src="foto2.jpg" alt="Galeri 2">
+        </div>
+
+        <div class="section" id="gift">
+            <h2>Wedding Gift</h2>
+            <p>Doa restu Anda merupakan karunia terindah bagi kami.<br>
+            Dan jika memberi adalah ungkapan tanda kasih,<br>
+            dengan senang hati kami menerima kado secara cashless melalui:</p>
+            <div class="rekening">
+                <p>BCA - 1234567890 a.n. Nama Pengantin</p>
+            </div>
+        </div>
+    </section>
+
+    <audio id="bgm" loop>
+        <source src="musik.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control">
+        <button onclick="toggleMusic()">🎵 Play/Pause Musik</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
