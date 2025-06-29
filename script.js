@@ -1,4 +1,3 @@
-
 function bukaUndangan() {
     document.querySelector('.opening').style.display = 'none';
     document.querySelector('#content').classList.remove('hidden');
@@ -6,7 +5,7 @@ function bukaUndangan() {
 }
 
 function toggleMusic() {
-    var music = document.getElementById('bgm');
+    const music = document.getElementById('bgm');
     if (music.paused) {
         music.play();
     } else {
