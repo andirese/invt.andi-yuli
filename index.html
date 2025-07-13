@@ -11,6 +11,9 @@
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <!-- AOS for animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,6 +24,12 @@
       color: #fff;
       scroll-behavior: smooth;
       overflow-x: hidden;
+    }
+    body.no-scroll {
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      position: fixed;
     }
     video.bg-video {
       position: fixed; top: 0; left: 0;
@@ -43,7 +52,9 @@
       position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.5);
       display: flex; justify-content: space-around; z-index: 10;
     }
-    .nav-fixed a { padding: 10px; }
+    .nav-hidden {
+      display: none;
+    }
     .input-group { margin: 1rem 0; }
     input, textarea {
       width: 100%; max-width: 400px; padding: 10px; margin-top: 5px;
@@ -53,21 +64,32 @@
       margin: 1rem auto; max-width: 500px; background: rgba(255,255,255,0.1);
       padding: 1rem; border-radius: 8px;
     }
+    .gallery-frame {
+      display: inline-block;
+      margin: 10px;
+      border: 4px solid #fff;
+      border-radius: 10px;
+      width: 160px;
+      height: 220px;
+      overflow: hidden;
+    }
+    .gallery-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
   </style>
 </head>
-<body>
+<body class="no-scroll">
   <video class="bg-video" autoplay muted loop>
     <source src="background-placeholder.mp4" type="video/mp4">
   </video>
 
-  <!-- Musik -->
   <audio id="bgMusic" loop>
     <source src="musik-placeholder.mp4" type="audio/mp4">
   </audio>
   <button onclick="toggleMusic()" style="position:fixed;top:10px;right:10px;z-index:10">🔊</button>
 
   <!-- Navigasi -->
-  <div class="nav-fixed">
+  <div class="nav-fixed nav-hidden" id="navBar">
     <a href="#opening">🏠</a>
     <a href="#home">💍</a>
     <a href="#cerita">🎞️</a>
@@ -79,47 +101,51 @@
 
   <!-- Opening -->
   <section class="container" id="opening">
-    <h1 class="section-title">The Wedding of Yuli & Andi</h1>
-    <p id="tamu">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-    <button class="button" onclick="document.getElementById('home').scrollIntoView({behavior: 'smooth'})">💌 Buka Undangan</button>
+    <h1 class="section-title">The Wedding of</h1>
+    <h2 class="section-title">Yuli & Andi</h2>
+    <p id="tamu">Kepada Yth. <span id="namaTamu">Bapak/Ibu/Saudara/i</span></p>
+    <button class="button" onclick="openInvitation()">💌 Buka Undangan</button>
   </section>
 
   <!-- Home -->
-  <section class="container" id="home">
+  <section class="container" id="home" data-aos="fade-up">
     <h2 class="section-title">Yuli & Andi</h2>
     <p>Minggu, 22 September 2025</p>
   </section>
 
   <!-- Cerita -->
-  <section class="container" id="cerita">
+  <section class="container" id="cerita" data-aos="fade-up">
     <h2 class="section-title">Perjalanan Kami</h2>
+    <div class="gallery-frame">
+      <img src="foto-perjalanan-placeholder.jpg" alt="Foto Perjalanan">
+    </div>
     <video autoplay muted loop playsinline style="width:90%;max-width:500px;border-radius:10px">
       <source src="video-perkenalan-placeholder.mp4" type="video/mp4">
     </video>
   </section>
 
   <!-- Waktu -->
-  <section class="container" id="waktu">
+  <section class="container" id="waktu" data-aos="fade-up">
     <h2 class="section-title">Save the Date</h2>
-    <div id="countdown">Loading countdown...</div>
-    <p>Minggu, 22 September 2025 | 09.00 WIB</p>
+    <div style="border: 4px dashed #ffd700; padding: 1rem; max-width: 400px; margin: 0 auto; border-radius: 20px; background: rgba(255,255,255,0.1); box-shadow: 0 0 15px rgba(255,215,0,0.5);">
+      <div id="countdown" style="font-size: 1.5rem; font-weight: bold;">Loading countdown...</div>
+    </div>
+    <p style="margin-top: 1rem;">Minggu, 22 September 2025 | 09.00 WIB</p>
     <a href="https://maps.google.com" target="_blank" class="button">📍 Lihat Lokasi</a>
   </section>
 
   <!-- Galeri -->
-  <section class="container" id="galeri">
+  <section class="container" id="galeri" data-aos="fade-up">
     <h2 class="section-title">Galeri</h2>
-    <video autoplay muted loop playsinline style="width:90%;max-width:500px;border-radius:10px">
-      <source src="video-galeri1-placeholder.mp4" type="video/mp4">
-    </video>
-    <br><br>
-    <video autoplay muted loop playsinline style="width:90%;max-width:500px;border-radius:10px">
-      <source src="video-galeri2-placeholder.mp4" type="video/mp4">
-    </video>
+    <div class="gallery-frame"><img src="foto1-placeholder.jpg"></div>
+    <div class="gallery-frame"><img src="foto2-placeholder.jpg"></div>
+    <div class="gallery-frame"><img src="foto3-placeholder.jpg"></div>
+    <div class="gallery-frame"><img src="foto4-placeholder.jpg"></div>
+    <div class="gallery-frame"><img src="foto5-placeholder.jpg"></div>
   </section>
 
   <!-- RSVP -->
-  <section class="container" id="rsvp">
+  <section class="container" id="rsvp" data-aos="fade-up">
     <h2 class="section-title">Konfirmasi Kehadiran</h2>
     <div class="input-group">
       <input type="text" id="nama" placeholder="Nama Anda">
@@ -132,24 +158,23 @@
       <textarea id="komentar" placeholder="Tulis doa atau komentar..." rows="3"></textarea>
     </div>
     <button class="button" onclick="submitRSVP()">Kirim</button>
-
     <div id="rsvpList"></div>
   </section>
 
   <!-- Gift -->
-  <section class="container" id="gift">
+  <section class="container" id="gift" data-aos="fade-up">
     <h2 class="section-title">Wedding Gift</h2>
     <p>Doa restu Anda sudah sangat cukup. Tapi jika ingin memberi hadiah, silakan kirim ke:</p>
     <p><strong>DANA: 0852-2443-1545</strong></p>
   </section>
 
   <script>
-    // Greeting
+    AOS.init({ once: false });
+
     const params = new URLSearchParams(window.location.search);
     const namaTamu = params.get("to");
-    if (namaTamu) document.getElementById("tamu").textContent += ` ${decodeURIComponent(namaTamu)}`;
+    if (namaTamu) document.getElementById("namaTamu").textContent = decodeURIComponent(namaTamu);
 
-    // Musik
     const bgMusic = document.getElementById('bgMusic');
     let playing = false;
     function toggleMusic() {
@@ -157,7 +182,12 @@
       playing = !playing;
     }
 
-    // Countdown
+    function openInvitation() {
+      document.body.classList.remove('no-scroll');
+      document.getElementById('navBar').classList.remove('nav-hidden');
+      document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+    }
+
     const eventDate = new Date("2025-09-22T09:00:00").getTime();
     const countdownEl = document.getElementById("countdown");
     setInterval(() => {
@@ -170,43 +200,6 @@
       const s = Math.floor((dist % (1000 * 60)) / 1000);
       countdownEl.innerHTML = `${d}h ${h}j ${m}m ${s}d`;
     }, 1000);
-
-    // Firebase config (placeholder - ganti dengan milikmu)
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_DOMAIN",
-      databaseURL: "YOUR_DB_URL",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "",
-      messagingSenderId: "",
-      appId: ""
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    // Submit RSVP
-    function submitRSVP() {
-      const nama = document.getElementById("nama").value;
-      const komentar = document.getElementById("komentar").value;
-      const status = document.querySelector("input[name='status']:checked")?.value;
-      if (!nama || !status) return alert("Harap isi nama dan status kehadiran");
-      const entry = { nama, status, komentar, waktu: Date.now() };
-      db.ref("rsvp").push(entry);
-    }
-
-    // Load RSVP list
-    const rsvpList = document.getElementById("rsvpList");
-    db.ref("rsvp").on("value", snapshot => {
-      rsvpList.innerHTML = "";
-      snapshot.forEach(data => {
-        const val = data.val();
-        rsvpList.innerHTML += `
-          <div class="rsvp-entry">
-            <strong>${val.nama}</strong> - ${val.status}<br>
-            <em>${val.komentar}</em>
-          </div>`;
-      });
-    });
   </script>
 </body>
 </html>
