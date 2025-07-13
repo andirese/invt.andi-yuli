@@ -1,240 +1,212 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wedding of Rio & Rini</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Amsterdam+One&family=Alike&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            color: white;
-            background-color: #121212;
-            overflow-x: hidden;
-        }
-        .full-screen {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-        }
-        video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-        }
-        .overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 1;
-        }
-        h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-        .nav {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-        }
-        .nav a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            border: 2px solid white;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        .nav a:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        section {
-            padding: 100px 20px;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s, transform 0.5s;
-        }
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .countdown {
-            font-size: 2em;
-            margin: 20px 0;
-        }
-        .rsvp-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .rsvp-form input, .rsvp-form textarea {
-            margin: 10px 0;
-            padding: 10px;
-            width: 300px;
-        }
-        .rsvp-list {
-            margin-top: 20px;
-        }
-        .gift-info {
-            font-size: 1.2em;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Wedding of Yuli & Andi</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Amsterdam+One&family=Alike&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: #fff;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    video.bg-video {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      z-index: -1;
+    }
+    .container {
+      padding: 4rem 1rem; text-align: center;
+    }
+    .section-title {
+      font-size: 2.5rem; margin-bottom: 1rem;
+      font-family: 'Great Vibes', cursive;
+    }
+    .button {
+      padding: 10px 20px; border: none; border-radius: 8px;
+      background: #ffd700; color: #000;
+      cursor: pointer; font-weight: bold;
+    }
+    .nav-fixed {
+      position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.5);
+      display: flex; justify-content: space-around; z-index: 10;
+    }
+    .nav-fixed a { padding: 10px; }
+    .input-group { margin: 1rem 0; }
+    input, textarea {
+      width: 100%; max-width: 400px; padding: 10px; margin-top: 5px;
+      border: none; border-radius: 6px;
+    }
+    .rsvp-entry {
+      margin: 1rem auto; max-width: 500px; background: rgba(255,255,255,0.1);
+      padding: 1rem; border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
+  <video class="bg-video" autoplay muted loop>
+    <source src="background-placeholder.mp4" type="video/mp4">
+  </video>
 
-    <div class="full-screen">
-        <video autoplay loop muted>
-            <source src="your-video-url.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="overlay">
-            <h1>The Wedding of Rio & Rini</h1>
-            <p id="greeting"></p>
-            <button onclick="scrollToSection('home')">💌 Buka Undangan</button>
-        </div>
+  <!-- Musik -->
+  <audio id="bgMusic" loop>
+    <source src="musik-placeholder.mp4" type="audio/mp4">
+  </audio>
+  <button onclick="toggleMusic()" style="position:fixed;top:10px;right:10px;z-index:10">🔊</button>
+
+  <!-- Navigasi -->
+  <div class="nav-fixed">
+    <a href="#opening">🏠</a>
+    <a href="#home">💍</a>
+    <a href="#cerita">🎞️</a>
+    <a href="#waktu">📅</a>
+    <a href="#galeri">📸</a>
+    <a href="#rsvp">📨</a>
+    <a href="#gift">🎁</a>
+  </div>
+
+  <!-- Opening -->
+  <section class="container" id="opening">
+    <h1 class="section-title">The Wedding of Yuli & Andi</h1>
+    <p id="tamu">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+    <button class="button" onclick="document.getElementById('home').scrollIntoView({behavior: 'smooth'})">💌 Buka Undangan</button>
+  </section>
+
+  <!-- Home -->
+  <section class="container" id="home">
+    <h2 class="section-title">Yuli & Andi</h2>
+    <p>Minggu, 22 September 2025</p>
+  </section>
+
+  <!-- Cerita -->
+  <section class="container" id="cerita">
+    <h2 class="section-title">Perjalanan Kami</h2>
+    <video autoplay muted loop playsinline style="width:90%;max-width:500px;border-radius:10px">
+      <source src="video-perkenalan-placeholder.mp4" type="video/mp4">
+    </video>
+  </section>
+
+  <!-- Waktu -->
+  <section class="container" id="waktu">
+    <h2 class="section-title">Save the Date</h2>
+    <div id="countdown">Loading countdown...</div>
+    <p>Minggu, 22 September 2025 | 09.00 WIB</p>
+    <a href="https://maps.google.com" target="_blank" class="button">📍 Lihat Lokasi</a>
+  </section>
+
+  <!-- Galeri -->
+  <section class="container" id="galeri">
+    <h2 class="section-title">Galeri</h2>
+    <video autoplay muted loop playsinline style="width:90%;max-width:500px;border-radius:10px">
+      <source src="video-galeri1-placeholder.mp4" type="video/mp4">
+    </video>
+    <br><br>
+    <video autoplay muted loop playsinline style="width:90%;max-width:500px;border-radius:10px">
+      <source src="video-galeri2-placeholder.mp4" type="video/mp4">
+    </video>
+  </section>
+
+  <!-- RSVP -->
+  <section class="container" id="rsvp">
+    <h2 class="section-title">Konfirmasi Kehadiran</h2>
+    <div class="input-group">
+      <input type="text" id="nama" placeholder="Nama Anda">
     </div>
+    <div class="input-group">
+      <label><input type="radio" name="status" value="Hadir"> Hadir</label>
+      <label><input type="radio" name="status" value="Tidak Hadir"> Tidak Hadir</label>
+    </div>
+    <div class="input-group">
+      <textarea id="komentar" placeholder="Tulis doa atau komentar..." rows="3"></textarea>
+    </div>
+    <button class="button" onclick="submitRSVP()">Kirim</button>
 
-    <nav class="nav">
-        <a href="#opening" title="Opening">Opening</a>
-        <a href="#home" title="Home">Home</a>
-        <a href="#cerita" title="Cerita">Cerita</a>
-        <a href="#waktu" title="Waktu">Waktu</a>
-        <a href="#galeri" title="Galeri">Galeri</a>
-        <a href="#rsvp" title="RSVP">RSVP</a>
-        <a href="#gift" title="Gift">Gift</a>
-    </nav>
+    <div id="rsvpList"></div>
+  </section>
 
-    <section id="home">
-        <h2>Selamat Datang</h2>
-        <h3>Rio & Rini</h3>
-    </section>
+  <!-- Gift -->
+  <section class="container" id="gift">
+    <h2 class="section-title">Wedding Gift</h2>
+    <p>Doa restu Anda sudah sangat cukup. Tapi jika ingin memberi hadiah, silakan kirim ke:</p>
+    <p><strong>DANA: 0852-2443-1545</strong></p>
+  </section>
 
-    <section id="cerita">
-        <h2>Cerita Kami</h2>
-        <video autoplay loop muted>
-            <source src="your-intro-video-url.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </section>
+  <script>
+    // Greeting
+    const params = new URLSearchParams(window.location.search);
+    const namaTamu = params.get("to");
+    if (namaTamu) document.getElementById("tamu").textContent += ` ${decodeURIComponent(namaTamu)}`;
 
-    <section id="waktu">
-        <h2>Waktu & Tempat</h2>
-        <p>Tanggal: 20 Desember 2025</p>
-        <p>Jam: 14:00 WIB</p>
-        <p>Lokasi: <a href="https://maps.google.com/?q=Your+Location" target="_blank">Google Maps</a></p>
-        <div class="countdown" id="countdown"></div>
-    </section>
+    // Musik
+    const bgMusic = document.getElementById('bgMusic');
+    let playing = false;
+    function toggleMusic() {
+      playing ? bgMusic.pause() : bgMusic.play();
+      playing = !playing;
+    }
 
-    <section id="galeri">
-        <h2>Galeri</h2>
-        <video autoplay loop muted>
-            <source src="your-gallery-video-url.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </section>
+    // Countdown
+    const eventDate = new Date("2025-09-22T09:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+    setInterval(() => {
+      const now = new Date().getTime();
+      const dist = eventDate - now;
+      if (dist < 0) return countdownEl.innerHTML = "Hari pernikahan telah tiba!";
+      const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+      const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((dist % (1000 * 60)) / 1000);
+      countdownEl.innerHTML = `${d}h ${h}j ${m}m ${s}d`;
+    }, 1000);
 
-    <section id="rsvp">
-        <h2>RSVP</h2>
-        <form class="rsvp-form" id="rsvpForm">
-            <input type="text" id="name" placeholder="Nama" required>
-            <label>
-                <input type="radio" name="attendance" value="Hadir" required> Hadir
-            </label>
-            <label>
-                <input type="radio" name="attendance" value="Tidak Hadir"> Tidak Hadir
-            </label>
-            <textarea id="comment" placeholder="Komentar"></textarea>
-            <button type="submit">Kirim</button>
-        </form>
-        <div class="rsvp-list" id="rsvpList"></div>
-    </section>
+    // Firebase config (placeholder - ganti dengan milikmu)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_DOMAIN",
+      databaseURL: "YOUR_DB_URL",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "",
+      messagingSenderId: "",
+      appId: ""
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    <section id="gift">
-        <h2>Gift</h2>
-        <p class="gift-info">Ucapan dan info rekening: DANA/OVO</p>
-    </section>
+    // Submit RSVP
+    function submitRSVP() {
+      const nama = document.getElementById("nama").value;
+      const komentar = document.getElementById("komentar").value;
+      const status = document.querySelector("input[name='status']:checked")?.value;
+      if (!nama || !status) return alert("Harap isi nama dan status kehadiran");
+      const entry = { nama, status, komentar, waktu: Date.now() };
+      db.ref("rsvp").push(entry);
+    }
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script>
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // Personalized greeting
-        const urlParams = new URLSearchParams(window.location.search);
-        const guestName = decodeURIComponent(urlParams.get('to'));
-        document.getElementById('greeting').innerText = guestName ? `Selamat datang, ${guestName}!` : '';
-
-        // Smooth scroll
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Countdown timer
-        const countdownDate = new Date("2023-12-20T14:00:00").getTime();
-        const countdownElement = document.getElementById("countdown");
-        setInterval(() => {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }, 1000);
-
-        // RSVP form submission
-        document.getElementById('rsvpForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const attendance = document.querySelector('input[name="attendance"]:checked').value;
-            const comment = document.getElementById('comment').value;
-
-            const rsvpData = { name, attendance, comment };
-            database.ref('rsvps').push(rsvpData);
-            displayRSVPs();
-        });
-
-        // Display RSVPs
-        function displayRSVPs() {
-            database.ref('rsvps').on('value', (snapshot) => {
-                const rsvpList = document.getElementById('rsvpList');
-                rsvpList.innerHTML = '';
-                snapshot.forEach((childSnapshot) => {
-                    const data = childSnapshot.val();
-                    rsvpList.innerHTML += `<p>${data.name} - ${data.attendance}: ${data.comment}</p>`;
-                });
-            });
-        }
-
-        // Initial call to display RSVPs
-        displayRSVPs();
-    </script>
+    // Load RSVP list
+    const rsvpList = document.getElementById("rsvpList");
+    db.ref("rsvp").on("value", snapshot => {
+      rsvpList.innerHTML = "";
+      snapshot.forEach(data => {
+        const val = data.val();
+        rsvpList.innerHTML += `
+          <div class="rsvp-entry">
+            <strong>${val.nama}</strong> - ${val.status}<br>
+            <em>${val.komentar}</em>
+          </div>`;
+      });
+    });
+  </script>
 </body>
 </html>
