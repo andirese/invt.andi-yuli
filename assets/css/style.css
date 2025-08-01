@@ -1,1 +1,423 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Alike', serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: black;
+  min-height: 100vh;
+  padding: 1.5rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  background: none;
+  position: relative;
+  z-index: 1;
+}
+
+.oval-photo {
+  width: 200px;
+  height: 250px;
+  border-radius: 50% / 40%;
+  overflow: hidden;
+  border: 5px solid #fff;
+  margin: 1rem 0;
+}
+
+.oval-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.title {
+  font-family: 'Alike', serif;
+  font-size: 6vw;
+  margin-bottom: 0.5rem;
+}
+
+.names {
+  font-family: 'Amsterdam One', cursive;
+  font-size: 5.5vw;
+  margin-bottom: 1rem;
+}
+
+.guest-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4.5vw;
+  margin-bottom: 1rem;
+}
+
+.open-button {
+  background-color: #9b6b3e;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border: none;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.open-button:hover {
+  background-color: #b47a47;
+}
+
+.music-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.music-toggle img {
+  width: 20px;
+  height: 20px;
+}
+
+.nav-fixed {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  z-index: 99;
+}
+
+.nav-fixed a img {
+  width: 32px;
+  height: 32px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+}
+
+body.opening-active .nav-fixed {
+  display: none;
+}
+
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+.profile-section {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.photo-frame {
+  width: 200px;
+  height: 250px;
+  border: 5px solid #b88b4a;
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0 auto 1rem;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.name {
+  font-family: 'Amsterdam One', cursive;
+  font-size: 1.8rem;
+  color: #000;
+  margin-bottom: 0.5rem;
+}
+
+.desc {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #333;
+}
+
+.ig {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.ig img {
+  width: 20px;
+  height: 20px;
+}
+
+.fade-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.framed-title {
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  border: 2px solid #9b6b3e;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.timeline-images img {
+  max-width: 80%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.timeline-section {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.timeline-line {
+  width: 80px;
+  height: 3px;
+  background: #9b6b3e;
+  border: none;
+  margin: 0.5rem auto 1rem;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.countdown-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.countdown-wrapper div {
+  background: #fff;
+  color: #000;
+  padding: 1rem;
+  border: 2px solid #9b6b3e;
+  border-radius: 10px;
+  text-align: center;
+  width: 80px;
+}
+
+.countdown-wrapper div span {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.event-info-box {
+  border: 2px solid #9b6b3e;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
+}
+
+.location-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #9b6b3e;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.location-button img {
+  width: 20px;
+  margin-right: 8px;
+}
+
+/* Untuk slide perkenalan */
+.profile-section .photo-frame {
+  width: 200px; /* Atur lebar bingkai */
+  height: 250px; /* Atur tinggi bingkai */
+  border-radius: 10px; /* Atur radius bingkai */
+  overflow: hidden; /* Pastikan gambar tidak keluar dari bingkai */
+  margin: 20px auto; /* Atur margin bingkai */
+}
+
+.profile-section .photo-frame img {
+  width: 100%; /* Atur lebar gambar */
+  height: 100%; /* Atur tinggi gambar */
+  object-fit: cover; /* Pastikan gambar sesuai dengan bingkai */
+}
+
+/* Untuk slide galeri */
+.gallery .photo-frame {
+  width: 250px; /* Atur lebar bingkai */
+  height: 200px; /* Atur tinggi bingkai */
+  border-radius: 10px; /* Atur radius bingkai */
+  overflow: hidden; /* Pastikan gambar tidak keluar dari bingkai */
+  margin: 20px; /* Atur margin bingkai */
+}
+
+.gallery .photo-frame img {
+  width: 100%; /* Atur lebar gambar */
+  height: 100%; /* Atur tinggi gambar */
+  object-fit: cover; /* Pastikan gambar sesuai dengan bingkai */
+}
+
+#gift {
+  min-height: 100vh;
+  background: #fff8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.gift-content {
+  text-align: center;
+  max-width: 700px;
+}
+
+.frame {
+  border: 2px solid #c49b66;
+  padding: 12px 24px;
+  display: inline-block;
+  border-radius: 12px;
+  background-color: #fff;
+  color: #663300;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.frame:hover {
+  transform: scale(1.05);
+}
+
+.spacing {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.fade-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+.fade-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.frame {
+  animation: zoomIn 1s ease forwards;
+}
+.hidden {
+  display: none;
+}
+
+.closing-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #fffaf5;
+}
+
+.closing-text {
+  font-size: 0.8rem;
+  color: #444;
+  margin: 0.5rem 0;
+}
+
+.signature {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  color: #b4876d;
+  margin-top: 2rem;
+}
+
+/* Google Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.rekening-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.rekening-logo {
+  width: 30px;
+  height: auto;
+}
+
+.rekening-item button {
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  background-color: #b88b4a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.timeline-section p em {
+  font-style: italic;
+  font-size: 0.8rem; /* Atur ukuran font */
+}
+
+.timeline-section h3 {
+  font-family: 'Great Vibes', cursive; /* Atur font-family */
+  font-size: 2rem; /* Atur ukuran font */
+}
+
+
 
