@@ -289,7 +289,7 @@ body.opening-active .nav-fixed {
   height: 250px; /* Atur tinggi bingkai */
   border-radius: 10px; /* Atur radius bingkai */
   overflow: hidden; /* Pastikan gambar tidak keluar dari bingkai */
-  margin: 20px auto; /* Atur margin bingkai */
+  margin: 12px auto; /* Atur margin bingkai */
 }
 
 .profile-section .photo-frame img {
