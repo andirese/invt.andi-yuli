@@ -304,7 +304,7 @@ body.opening-active .nav-fixed {
   height: 200px; /* Atur tinggi bingkai */
   border-radius: 10px; /* Atur radius bingkai */
   overflow: hidden; /* Pastikan gambar tidak keluar dari bingkai */
-  margin: 20px; /* Atur margin bingkai */
+  margin: 12px; /* Atur margin bingkai */
 }
 
 .gallery .photo-frame img {
